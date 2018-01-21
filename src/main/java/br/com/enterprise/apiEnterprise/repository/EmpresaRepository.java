@@ -6,7 +6,7 @@ import br.com.enterprise.apiEnterprise.model.Empresa;
 
 public interface EmpresaRepository extends JpaRepository<Empresa, Long>{
 
-	public Empresa findByRazaoSocial(String razaoSocial);
+	public Empresa findByRazaoSocialContaining(String razaoSocial);
 	
 	public Empresa findByCnpj(String cnpj);
 	

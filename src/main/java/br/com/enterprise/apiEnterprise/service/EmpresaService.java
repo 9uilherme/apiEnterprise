@@ -52,6 +52,6 @@ public class EmpresaService {
 	}
 	
 	public Empresa findByRazaoSocial (String razaoSocial) {
-		return empresaRepository.findByRazaoSocial(razaoSocial);
+		return empresaRepository.findByRazaoSocialContaining(razaoSocial);
 	}
 }
