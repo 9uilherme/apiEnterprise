@@ -50,6 +50,10 @@ public class EmpresaController {
 		}
 	}
 
+	@GetMapping(value="/empresa/findById/{id}")
+	public ResponseEntity<?> findById(@PathVariable Long id) {
+		return new ResponseEntity<Empresa>(empresaService.findById(id), HttpStatus.OK);
+	}
 
 	@GetMapping(value="/empresa/findByStatus/{status}")
 	public ResponseEntity<?> findByStatus(@PathVariable String status) {

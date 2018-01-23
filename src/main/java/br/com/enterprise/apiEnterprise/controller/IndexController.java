@@ -8,6 +8,14 @@ public class IndexController {
 
 	@GetMapping("/")
 	public String getIndex() {
-		return "empresaList";
+		return "index";
+	}
+	@GetMapping("/empresaEdit")
+	public String getEmpresa() {
+		return "index";
+	}
+	@GetMapping("/empresaList")
+	public String getEmpresaList() {
+		return "index";
 	}
 }

@@ -43,6 +43,10 @@ public class EmpresaService {
 		empresaSaved.setStatus(empresa.getStatus());
 	}
 
+	public Empresa findById (Long id) {
+		return empresaRepository.findById(id);
+	}
+
 	public Empresa findByStatus (String status) {
 		return empresaRepository.findByStatus(status);
 	}
