@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.enterprise.apiEnterprise.model.Empresa;
 import br.com.enterprise.apiEnterprise.service.EmpresaService;
@@ -57,18 +56,18 @@ public class EmpresaController {
 	}
 
 	@GetMapping(value="/empresa/findByStatus/{status}")
-	public ResponseEntity<?> findByStatus(@PathVariable String status) {
-		return new ResponseEntity<Empresa>(empresaService.findByStatus(status), HttpStatus.OK);
+	public ResponseEntity<List<Empresa>> findByStatus(@PathVariable String status) {
+		return new ResponseEntity<List<Empresa>>(empresaService.findByStatus(status), HttpStatus.OK);
 	}
 
 	@GetMapping(value="/empresa/findByRazaoSocial/{razaoSocial}")
-	public ResponseEntity<?> findByRazaoSocial(@PathVariable String razaoSocial) {
-		return new ResponseEntity<Empresa>(empresaService.findByRazaoSocial(razaoSocial), HttpStatus.OK);
+	public ResponseEntity<List<Empresa>> findByRazaoSocial(@PathVariable String razaoSocial) {
+		return new ResponseEntity<List<Empresa>>(empresaService.findByRazaoSocial(razaoSocial), HttpStatus.OK);
 	}
 
 	@GetMapping(value="/empresa/findByCnpj/{cnpj}")
-	public ResponseEntity<?> findByCnpj(@PathVariable String cnpj) {
-		return new ResponseEntity<Empresa>(empresaService.findByCnpj(cnpj), HttpStatus.OK);
+	public  ResponseEntity<List<Empresa>> findByCnpj(@PathVariable String cnpj) {
+		return new ResponseEntity<List<Empresa>> (empresaService.findByCnpj(cnpj), HttpStatus.OK);
 	}
 	
 }

@@ -47,15 +47,15 @@ public class EmpresaService {
 		return empresaRepository.findById(id);
 	}
 
-	public Empresa findByStatus (String status) {
-		return empresaRepository.findByStatus(status);
+	public List<Empresa> findByStatus (String status) {
+		return (List<Empresa>) empresaRepository.findByStatusContainingIgnoreCase(status);
 	}
 	
-	public Empresa findByCnpj (String cnpj) {
-		return empresaRepository.findByCnpj(cnpj);
+	public List<Empresa> findByCnpj (String cnpj) {
+		return (List<Empresa>) empresaRepository.findByCnpjContaining(cnpj);
 	}
 	
-	public Empresa findByRazaoSocial (String razaoSocial) {
-		return empresaRepository.findByRazaoSocialContaining(razaoSocial);
+	public List<Empresa> findByRazaoSocial (String razaoSocial) {
+		return  (List<Empresa>) empresaRepository.findByRazaoSocialContainingIgnoreCase(razaoSocial);
 	}
 }

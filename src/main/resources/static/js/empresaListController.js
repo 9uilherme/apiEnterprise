@@ -10,7 +10,8 @@ app.controller("empresaListController", function ($scope, $http){
 			filiais: []
 	};
 	$scope.empresas = [];
-
+	var urlToGet = 'http://localhost:9090/empresa/';
+	
 	function findAllEmpresas(){
 		$http({
 			method: 'GET',
@@ -22,6 +23,49 @@ app.controller("empresaListController", function ($scope, $http){
 		});
 	};
 
+	function findEmpresasByRazaoSocial (razaoSocial) {
+		var url = urlToGet + 'findByRazaoSocial/' + razaoSocial;
+		$http({
+			method: 'GET',
+			url: url
+		}).then(function successCallback(response) {
+			$scope.empresas = [];
+			angular.forEach(response.data, function(empresa){
+				$scope.empresas.push(empresa);
+			});
+		}, function errorCallback(response) {
+			console.log("Fail to get url /empresa/findByRazaoSocial");
+		});
+	}
+	function findEmpresasByCnpj (cnpj){
+		var url = urlToGet + 'findByCnpj/' + cnpj;
+		$http({
+			method: 'GET',
+			url: url
+		}).then(function successCallback(response) {
+			$scope.empresas = [];
+			angular.forEach(response.data, function(empresa){
+				$scope.empresas.push(empresa);
+			});
+		}, function errorCallback(response) {
+			console.log("Fail to get url /empresa/findByCnpj");
+		});
+	}
+	function findEmpresasByStatus (status){
+		var url = urlToGet + 'findByStatus/' + status;
+		$http({
+			method: 'GET',
+			url: url
+		}).then(function successCallback(response) {
+			$scope.empresas = [];
+			angular.forEach(response.data, function(empresa){
+				$scope.empresas.push(empresa);
+			});
+		}, function errorCallback(response) {
+			console.log("Fail to get url /empresa/findByStatus");
+		});
+	}
+	
 	findAllEmpresas();
 
 
@@ -35,7 +79,6 @@ app.controller("empresaListController", function ($scope, $http){
 		})
 		.then(function(response) {
 			console.log(response);
-			console.log($scope.empresas.indexof(response.data));
 		}, function(rejection) {
 			console.log("Fail to delete empresa/delete");
 		});
@@ -55,18 +98,12 @@ app.controller("empresaListController", function ($scope, $http){
 	};
 
 	$scope.buscarFiltros = function (){
-		var urlToGet = 'http://localhost:9090/empresa/';
 		if($scope.filtro.razaoSocial){ 
-			urlToGet = urlToGet + 'findByRazaoSocial/' + $scope.filtro.razaoSocial;
-			$http({
-				method: 'GET',
-				url: urlToGet
-			}).then(function successCallback(response) {
-				$scope.empresas = [];
-				$scope.empresas.push(response.data);
-			}, function errorCallback(response) {
-				console.log("Fail to get url /empresa/findByRazaoSocial");
-			});
+			findEmpresasByRazaoSocial($scope.filtro.razaoSocial);
+		}else if($scope.filtro.cnpj){
+			findEmpresasByCnpj($scope.filtro.cnpj);
+		}else if($scope.filtro.status){
+			findEmpresasByStatus($scope.filtro.status);
 		}
 	};
 
