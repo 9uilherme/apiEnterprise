@@ -40,11 +40,12 @@ public class EmpresaController {
 		}
 	}
 	
-	@DeleteMapping(value="/empresa/delete")
-	public ResponseEntity<Boolean> delete(@RequestBody Empresa empresa) {
+	@DeleteMapping(value="/empresa/delete/{id}")
+	public ResponseEntity<?> delete(@PathVariable Long id) {
 		try {
-			empresaService.delete(empresa);
-			return new ResponseEntity<Boolean> (Boolean.TRUE, HttpStatus.OK);
+			Empresa empresaToDelete = empresaService.findById(id);
+			empresaService.delete(empresaToDelete);
+			return new ResponseEntity<Empresa> (empresaToDelete, HttpStatus.OK);
 		}catch(Exception e) {
 			return new ResponseEntity<Boolean> (Boolean.FALSE, HttpStatus.BAD_REQUEST);
 		}

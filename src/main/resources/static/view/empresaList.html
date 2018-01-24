@@ -14,7 +14,10 @@
 		<button type="button" class="btn btn-info" >
 			<span class="glyphicon glyphicon-pencil"></span>	
 			<a style="color:white" ng-href="/empresaEdit/{{empresaChecked.id}}">Edição</a>
-		
+		</button>
+		<button type="button" class="btn btn-danger" >
+			<span class="glyphicon glyphicon-remove"></span>	
+			<a style="color:white" ng-href="/" ng-click="deleteEmpresa()">Delete</a>
 		</button>
 	</div>
 	<div style="width: 100%">
@@ -25,7 +28,6 @@
 					<th>Empresa</th>
 					<th>Cnpj</th>
 					<th>Status</th>
-					
 				</tr>
 				<tr ng-show="isFiltros">
 					<th></th>

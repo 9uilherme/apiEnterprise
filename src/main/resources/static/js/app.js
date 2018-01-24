@@ -19,14 +19,3 @@ app.config(function($routeProvider, $locationProvider) {
 
 })
 
-app.controller("indexController", function($scope){
-
-	$scope.empresaChecked =  {
-			id: null,
-			razaoSocial: null,
-			cnpj: null,
-			status: null,
-			filiais: []
-	};
-});
-

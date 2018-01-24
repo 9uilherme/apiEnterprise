@@ -13,4 +13,6 @@ public interface EmpresaRepository extends JpaRepository<Empresa, Long>{
 	public Empresa findByStatus(String status);
 	
 	public Empresa findById(Long id);
+	
+	public void delete(Long id);
 }

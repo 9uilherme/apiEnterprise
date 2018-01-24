@@ -33,7 +33,7 @@ public class EmpresaService {
 	}
 
 	public void delete(Empresa empresa) {
-		empresaRepository.delete(empresa);
+		empresaRepository.delete(empresa.getId());
 	}
 	
 	private void montarEmpresa(Empresa empresaSaved, Empresa empresa) {
