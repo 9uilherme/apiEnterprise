@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.enterprise.apiEnterprise.model.Empresa;
+import br.com.enterprise.apiEnterprise.model.Filial;
 import br.com.enterprise.apiEnterprise.repository.EmpresaRepository;
 
 @Service
@@ -20,7 +21,17 @@ public class EmpresaService {
 	}
 	
 	public Empresa save(Empresa empresa) {
+		setarEmpresaEmFiliais(empresa);
 		return empresaRepository.save(empresa);
+		
+	}
+	
+	private void setarEmpresaEmFiliais(Empresa empresa) {
+		if(empresa.getFiliais().size() > 0) {
+			for (Filial filial : empresa.getFiliais()) {
+				filial.setEmpresa(empresa);
+			}
+		}
 	}
 	
 	public Empresa update(Empresa empresa) {
@@ -40,6 +51,7 @@ public class EmpresaService {
 		empresaSaved.setCnpj(empresa.getCnpj());
 		empresaSaved.setRazaoSocial(empresa.getRazaoSocial());
 		empresaSaved.setFiliais(empresa.getFiliais());
+		setarEmpresaEmFiliais(empresaSaved);
 		empresaSaved.setStatus(empresa.getStatus());
 	}
 

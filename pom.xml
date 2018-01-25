@@ -56,6 +56,12 @@
 			<artifactId>springloaded</artifactId>
 			<version>1.2.8.RELEASE</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.thoughtworks.xstream/xstream -->
+		<dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+			<version>1.4.10</version>
+		</dependency>
 
 	</dependencies>
 

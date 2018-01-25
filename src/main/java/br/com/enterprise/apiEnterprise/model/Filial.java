@@ -2,7 +2,6 @@ package br.com.enterprise.apiEnterprise.model;
 
 import java.util.Calendar;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -10,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Filial {
@@ -92,7 +93,7 @@ public class Filial {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
+	@JsonIgnore
 	public Empresa getEmpresa() {
 		return empresa;
 	}

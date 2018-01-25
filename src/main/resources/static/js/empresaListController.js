@@ -1,7 +1,8 @@
-app.controller("empresaListController", function ($scope, $http){
+app.controller("empresaListController", function ($scope, $http, $window){
 
 	$scope.isFiltros = false;
 	$scope.filtro = {};
+	$scope.pathDownload = "";
 	$scope.empresaChecked =  {
 			id: null,
 			razaoSocial: null,
@@ -10,7 +11,8 @@ app.controller("empresaListController", function ($scope, $http){
 			filiais: []
 	};
 	$scope.empresas = [];
-	var urlToGet = 'http://localhost:9090/empresa/';
+	var urlMin = 'http://localhost:9090/';
+	var urlToGet = urlMin + 'empresa/';
 	
 	function findAllEmpresas(){
 		$http({
@@ -64,6 +66,22 @@ app.controller("empresaListController", function ($scope, $http){
 		}, function errorCallback(response) {
 			console.log("Fail to get url /empresa/findByStatus");
 		});
+	}
+	$scope.downloadXml = function () {
+		var url = urlMin + 'allToXml';
+		$http({
+			method: 'GET',
+			url: url
+
+		}).then(function successCallback(response) {
+			var path = response.data.path.split('/');
+			$scope.pathDownload = path[5] + '/'+  path[6];
+			$window.open( response.data.path );
+		}, function errorCallback(response) {
+			console.log("Fail to get url /allToXml");
+		});
+	
+		
 	}
 	
 	findAllEmpresas();
