@@ -27,10 +27,13 @@ public class EmpresaService {
 	}
 	
 	private void setarEmpresaEmFiliais(Empresa empresa) {
-		if(empresa.getFiliais().size() > 0) {
-			for (Filial filial : empresa.getFiliais()) {
-				filial.setEmpresa(empresa);
+		if(empresa.getFiliais() != null) {
+			if(empresa.getFiliais().size() > 0) {
+				for (Filial filial : empresa.getFiliais()) {
+					filial.setEmpresa(empresa);
+				}
 			}
+			
 		}
 	}
 	
@@ -51,8 +54,8 @@ public class EmpresaService {
 		empresaSaved.setCnpj(empresa.getCnpj());
 		empresaSaved.setRazaoSocial(empresa.getRazaoSocial());
 		empresaSaved.setFiliais(empresa.getFiliais());
-		setarEmpresaEmFiliais(empresaSaved);
 		empresaSaved.setStatus(empresa.getStatus());
+		setarEmpresaEmFiliais(empresaSaved);
 	}
 
 	public Empresa findById (Long id) {

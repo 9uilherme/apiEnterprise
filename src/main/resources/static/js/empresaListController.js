@@ -21,7 +21,6 @@ app.controller("empresaListController", function ($scope, $http, $window){
 		}).then(function successCallback(response) {
 			$scope.empresas = response.data;
 		}, function errorCallback(response) {
-			console.log("Fail to get url /empresa/findAll");
 		});
 	};
 
@@ -74,16 +73,18 @@ app.controller("empresaListController", function ($scope, $http, $window){
 			url: url
 
 		}).then(function successCallback(response) {
-			var path = response.data.path.split('/');
-			$scope.pathDownload = path[5] + '/'+  path[6];
-			$window.open( response.data.path );
+			
+			$scope.pathDownload = response.data;
+			$scope.success = 'sucesso ao exportar, clique em download!';
+			$scope.erro = null;
 		}, function errorCallback(response) {
-			console.log("Fail to get url /allToXml");
+
+			$scope.erro = 'falha ao exportar xml!';
+			$scope.success = null;
 		});
 	
 		
 	}
-	
 	findAllEmpresas();
 
 
@@ -97,17 +98,12 @@ app.controller("empresaListController", function ($scope, $http, $window){
 		})
 		.then(function(response) {
 			console.log(response);
+			$scope.success = 'sucesso ao deletar empresa!';
+			$scope.erro = null;
 		}, function(rejection) {
-			console.log("Fail to delete empresa/delete");
+			$scope.erro = 'falha ao deletar empresa!';
+			$scope.success = null;
 		});
-		/*
-		$http.delete("empresa/delete/" + $scope.empresaChecked , 
-		).then(function(response){
-			window.alert("Sucess!")
-		},function(response){
-			window.alert("Fail to delete empresa/delete");
-		})
-		*/
 	}
 
 

@@ -1,12 +1,10 @@
 package br.com.enterprise.apiEnterprise.controller;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,12 +12,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.thoughtworks.xstream.XStream;
 
 import br.com.enterprise.apiEnterprise.model.Empresa;
 import br.com.enterprise.apiEnterprise.model.Filial;
-import br.com.enterprise.apiEnterprise.model.XmlViewHelper;
 import br.com.enterprise.apiEnterprise.service.EmpresaService;
 
 @Controller
@@ -41,6 +40,16 @@ public class IndexController {
 		return "index";
 	}
 
+	@GetMapping("/importacao")
+	public String getImportacao() {
+		return "index";
+	}
+
+	@GetMapping("/empresaEdit/{id}")
+	public String getEmpresaId(@PathVariable Long id) {
+		return "index";
+	}
+
 	@GetMapping("/allToXml")
 	public ResponseEntity<?> allToXml(){
 		try {
@@ -49,24 +58,20 @@ public class IndexController {
 
 			List<Empresa> empresa = empresaService.findAll();
 
-			String path = "./src/main/resources/static/xml/" + new Random().nextInt(10000000) + ".xml";
+			int number =  new Random().nextInt(10000000);
+			String path = "./src/main/resources/static/xml/" + number + ".xml";
 
 			FileWriter w = new FileWriter(path);
 			writeToXml(w,x,empresa);
-
-			XmlViewHelper obj = new XmlViewHelper(path);
 			
-			return new ResponseEntity<XmlViewHelper>(obj, HttpStatus.OK);
+			return new ResponseEntity<Integer>(number, HttpStatus.OK);
 		}catch(Exception e) {
 			return new ResponseEntity<Boolean>(Boolean.FALSE, HttpStatus.BAD_REQUEST);
 		}
 
 	}
-	@GetMapping("/xmlToObj")
-	public ResponseEntity<?> xmlToObj (@PathVariable String xmlPath){
-		XStream x = new XStream();
-		File f = new File("xml/"+xmlPath);
-		List<Empresa> empresa = (List<Empresa>) x.fromXML(f);
+	@PostMapping("/xmlToObj")
+	public ResponseEntity<?> xmlToObj (@RequestBody List<Empresa> empresa){
 		List<Empresa> fail = new ArrayList<Empresa>();
 		for (Empresa empresa2 : empresa) {
 			try {
@@ -80,7 +85,11 @@ public class IndexController {
 				continue;
 			}
 		}
-		return new ResponseEntity<List<Empresa>>(fail, HttpStatus.OK);
+		if(fail.size() > 0) {
+			return new ResponseEntity<List<Empresa>>(fail, HttpStatus.PARTIAL_CONTENT);
+		}else {
+			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+		}
 	}
 	 
 	private void writeToXml(FileWriter w,XStream x, Object obj) {
@@ -107,19 +116,19 @@ public class IndexController {
 			generateXmlEmpresa(x);
 
 			Empresa empresa = empresaService.findById(idEmpresa);
-
-			String path = "./src/main/resources/static/xml/" + new Random().nextInt(10000000) + ".xml";
+			int number =  new Random().nextInt(10000000);
+			String path = "./src/main/resources/static/xml/" + number + ".xml";
 
 			FileWriter w = new FileWriter(path);
 			writeToXml(w,x,empresa);
-
-			XmlViewHelper obj = new XmlViewHelper(path);
 			
-			return new ResponseEntity<XmlViewHelper>(obj, HttpStatus.OK);
+			return new ResponseEntity<Integer>(number, HttpStatus.OK);
 		}catch(Exception e) {
 			return new ResponseEntity<Boolean>(Boolean.FALSE, HttpStatus.BAD_REQUEST);
 		}
 
 	}
+
+	
 }
 

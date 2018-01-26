@@ -1,0 +1,9 @@
+
+<div class="alert alert-danger" ng-show="erro">{{ erro }}</div> 
+<div class="alert alert-success" ng-show="success">{{ success }}</div> 
+
+<div class="upload-field">
+	{{ fileName }} <input type="file" id="uploadFileInput" />
+	<button class="icon-folder"></button>
+</div>
+<button class="upload-file-button" ng-click="uploadFile()">Importar</button>

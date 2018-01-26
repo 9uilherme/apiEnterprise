@@ -1,4 +1,7 @@
 <meta charset="UTF-8">
+
+<div class="alert alert-danger" ng-show="erro">{{ erro }}</div> 
+<div class="alert alert-success" ng-show="success">{{ success }}</div> 
 <div id="opcoesTabela">
 		<button type="button" class="btn btn-success"
 			ng-click="buscarFiltros()">
@@ -17,17 +20,22 @@
 		</button>
 		<button type="button" class="btn btn-danger" >
 			<span class="glyphicon glyphicon-remove"></span>	
-			<a style="color:white" ng-href="/" ng-click="deleteEmpresa()">Delete</a>
+			<a style="color:white" ng-click="deleteEmpresa()">Delete</a>
 		</button>
 		
-		<button type="button" class="btn btn-danger" >
-			<span class="glyphicon glyphicon-remove"></span>	
-			<a style="color:white" ng-href="/" ng-click="deleteEmpresa()">Importação</a>
-		</button>
-		
-		<button type="button" class="btn btn-success	" >
+		<button type="button" class="btn btn-success" >
 			<span class="glyphicon glyphicon-file"></span>	
-			<a style="color:white" href="#" ng-click="downloadXml()">Exportação</a>
+			<a style="color:white" ng-href="/importacao" >Importação</a>
+		</button>
+		
+		<button type="button" class="btn btn-success" >
+			<span class="glyphicon glyphicon-file"></span>	
+			<a style="color:white" ng-click="downloadXml()">Exportação</a>
+		</button>
+		
+		<button ng-show="pathDownload"  type="button" class="btn btn-success" >
+			<span class="glyphicon glyphicon-file"></span>	
+			<a style="color:white"  href="/xml/604548.xml" download="file.xml" target="_self" >Download</a>
 		</button>
 		
 	</div>
