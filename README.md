@@ -21,6 +21,7 @@ Usando:
 O sistema inicia-se na página de listagem, e todas as ações estão em botões coloridos. Apenas o cadastro de uma nova empresa
 encontra-se no menu superior. É possível importar e exportar xml. Para importar, segue o padrão: 
 
+```xml
 <list>
   <empresa>
     <razaoSocial>Carrefour</razaoSocial>
@@ -38,5 +39,6 @@ encontra-se no menu superior. É possível importar e exportar xml. Para importa
     </filial>
   </empresa>
 </list>
+```
 
 *não coloque datacriacao ou dataalteracao no xml
